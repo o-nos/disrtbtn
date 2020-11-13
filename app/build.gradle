@@ -1,0 +1,67 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.appdistribution'
+}
+
+android {
+    compileSdkVersion 30
+
+    defaultConfig {
+        applicationId "com.onos.mydistribution"
+        minSdkVersion 24
+        targetSdkVersion 30
+        versionCode 15
+        versionName "1.12"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    flavorDimensions "version"
+    productFlavors {
+        demo {
+            dimension "version"
+            versionName "1.12 dpp update for Robert"
+            firebaseAppDistribution {
+                releaseNotes="pdd test branch"
+                testers="oleksandr.nos@beetroot.com.ua, spacegatherer@gmail.com, robert@heynow.ai"
+            }
+        }
+        full {
+            dimension "version"
+            firebaseAppDistribution {
+                releaseNotes="Release notes for full version"
+                testers="oleksandr.nos@beetroot.com.ua"
+            }
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation platform('com.google.firebase:firebase-bom:26.0.0')
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+}
